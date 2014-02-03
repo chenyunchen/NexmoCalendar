@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='bootstrap.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+<script type="text/javascript" src="{{url_for('static', filename='js/tinymce/jquery-2.0.3.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/My97DatePicker/WdatePicker.js')}}"></script>
+<script type="text/javascript">
+  tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor mention"
+        ],
+        mentions: {
+            source: [
+                { name: 'propose' },
+                { name: 'provide' },
+                { name: 'prefer' },
+                { name: 'pursue' },
+                { name: 'pretend' },
+                { name: 'present' }
+            ]
+        },
+  });
+</script>
+</head>
+<body>
+<div class=page>
+  <h1>Voice Call Calendar</h1>
+  <div class=metanav>
+  {% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">log in</a>
+  {% else %}
+  <a href="{{ url_for('logout') }}">log out</a>
+  {% endif %}
+  </div>
+  {% for message in get_flashed_messages() %}
+  <div class=flash>{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>
+</body>
+</html>

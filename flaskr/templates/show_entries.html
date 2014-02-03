@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+  <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+    <dl>
+      <dt>活動名稱
+      <dd><input type=text size=30 name=Event>
+      <dt>開始日期
+      <dd><input class="Wdate" onClick="WdatePicker({minDate:'%y-%M-%d'})" readonly="readonly"  type=text size=30 name=SDate>
+      <dt>開始時間
+      <dd><input class="Wdate" onClick="WdatePicker({dateFmt:'HH:mm',minDate:'%H-%m'})" readonly="readonly"  type=text size=30 name=STime>
+      <dt>結束日期
+      <dd><input class="Wdate" onClick="WdatePicker({minDate:'%y-%M-%d'})" readonly="readonly"  type=text size=30 name=FDate>
+      <dt>結束時間
+      <dd><input class="Wdate" onClick="WdatePicker({dateFmt:'H:mm'})" readonly="readonly"  type=text size=30 name=FTime>
+      <dt>地點
+      <dd><input type=text size=30 name=Location>
+      <dt>說明
+      <dd><input type=text size=30 name=Note>
+      <dd><input type=submit value=Share>
+    </dl>
+  </form>
+  {% endif %}
+  <ul class=entries>
+  {% for entry in entries %}
+  <h2>{{ entry.Event }}</h2>{{ entry.SDate }}&nbsp;&nbsp;{{ entry.STime }}&nbsp;&nbsp;At&nbsp;&nbsp;{{ entry.Location }}<li>{{ entry.Note }}
+  {% else %}
+    <li><em>Unbelievable. No entries here so far</em>
+  {% endfor %}
+  </ul>
+  <form method="post">
+  </form>
+{% endblock %}
